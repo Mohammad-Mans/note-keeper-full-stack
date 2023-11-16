@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./AddNotesField.css";
 
-function AddNotesField() {
+function AddNotesField({ onAddNote }) {
   const [expanded, setExpanded] = useState(false);
   const [note, setNote] = useState({ title: "", content: "" });
 
@@ -24,6 +24,7 @@ function AddNotesField() {
 
       if (response.ok) {
         console.log("Note added successfully");
+        onAddNote();
       } else {
         console.error("Failed to add note");
       }

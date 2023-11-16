@@ -15,7 +15,7 @@ router.post("/", async (req, res) => {
   const note = new Note({
     title: req.body.title,
     content: req.body.content,
-    createdAt: req.body.createdAt || new Date(),
+    date: req.body.date || new Date(),
   });
   try {
     const newNote = await note.save();
@@ -46,7 +46,7 @@ router.put("/:id", async (req, res) => {
       {
         title: req.body.title,
         content: req.body.content,
-        createdAt: req.body.createdAt,
+        date: req.body.date,
       },
       { new: true }
     );
