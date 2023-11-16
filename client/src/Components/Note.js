@@ -1,11 +1,25 @@
-import React from "react";
+import React, {useState} from "react";
 import "./Note.css";
 import DeleteIcon from "@mui/icons-material/Delete";
+import ConfirmationDialog from "./ConfirmationDialog";
 
-function Note({ title, content, date}) {
+
+function Note({ title, content, date , onDelete}) {
+  const [isDialogOpen, setDialogOpen] = useState(false);
+
   function handleDelete(e) {
     e.stopPropagation();
+    setDialogOpen(true);
   }
+
+  const handleCloseDialog = () => {
+    setDialogOpen(false);
+  };
+
+  const handleConfirmDelete = () => {
+    setDialogOpen(false);
+    onDelete();
+  };
 
   return (
     <section className="note">
@@ -15,6 +29,12 @@ function Note({ title, content, date}) {
       <span className="icon">
         <DeleteIcon onClick={(e) => handleDelete(e)} />
       </span>
+
+      <ConfirmationDialog
+        isOpen={isDialogOpen}
+        onClose={handleCloseDialog}
+        onConfirm={handleConfirmDelete}
+      />
     </section>
   );
 }

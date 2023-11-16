@@ -24,10 +24,27 @@ function Main() {
     }
   };
 
+  const handleDeleteNote = async (noteId) => {
+    try {
+      const response = await fetch(`http://localhost:3000/notes/${noteId}`, {
+        method: "DELETE",
+      });
+
+      if (response.ok) {
+        console.log("Note deleted successfully");
+        fetchData();
+      } else {
+        console.error("Failed to delete note");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
   return (
     <main className="main">
       <AddNotesField onAddNote={() => fetchData()} />
-      <Notes notes={notes} />
+      <Notes notes={notes} onDeleteNote={handleDeleteNote} />
     </main>
   );
 }
