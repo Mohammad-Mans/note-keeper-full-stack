@@ -7,15 +7,16 @@
   height: 100%;
   backdrop-filter: blur(5px);
   background-color: rgba(0, 0, 0, 0.3);
-  display: none;
   justify-content: center;
   align-items: center;
   cursor: default;
+  z-index: 998;
 
   > .confirmation-dialog {
     width: 500px;
     background-color: var(--note-background-dark);
     padding: 20px;
+    z-index: 999;
 
     > h2 {
       margin-bottom: 10px;
@@ -38,16 +39,12 @@
       }
 
       > .delete {
-        color: red;
+        color: #ff0000;
       }
 
-      > button:hover{
+      > button:hover {
         opacity: 0.5;
       }
     }
   }
-}
-
-.confirmation-overlay.open {
-  display: flex;
 }

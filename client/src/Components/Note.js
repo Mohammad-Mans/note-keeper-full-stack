@@ -1,41 +1,66 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import "./Note.css";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ConfirmationDialog from "./ConfirmationDialog";
+import UpdateDialog from "./UpdateDialog";
 
-
-function Note({ title, content, date , onDelete}) {
-  const [isDialogOpen, setDialogOpen] = useState(false);
+function Note({ title, content, date, onDelete, onUpdate }) {
+  const [openDialog, setOpenDialog] = useState(null);
 
   function handleDelete(e) {
     e.stopPropagation();
-    setDialogOpen(true);
+    setOpenDialog("delete");
   }
 
-  const handleCloseDialog = () => {
-    setDialogOpen(false);
-  };
+  function handleUpdateClick() {
+    setOpenDialog("update");
+  }
 
-  const handleConfirmDelete = () => {
-    setDialogOpen(false);
+  function handleCloseDialog() {
+    setOpenDialog(null);
+  }
+
+  function handleConfirmDelete() {
+    setOpenDialog(null);
     onDelete();
-  };
+  }
+
+  function handleUpdateNote(updatedNote) {
+    onUpdate(updatedNote);
+    setOpenDialog(null);
+  }
+
+  if (openDialog === "update") {
+    return (
+      <section>
+        <UpdateDialog
+          isOpen={true}
+          onClose={handleCloseDialog}
+          onUpdate={handleUpdateNote}
+          note={{ title, content, date }}
+        />
+      </section>
+    );
+  }
 
   return (
-    <section className="note">
-      <h3 className="title">{title}</h3>
-      <p className="content">{content}</p>
-      <date className="date">{new Date(date).toLocaleDateString()}</date>
-      <span className="icon">
-        <DeleteIcon onClick={(e) => handleDelete(e)} />
-      </span>
+    <>
+      {openDialog === "delete" && (
+        <ConfirmationDialog
+          onClose={handleCloseDialog}
+          onConfirm={handleConfirmDelete}
+        />
+      )}
 
-      <ConfirmationDialog
-        isOpen={isDialogOpen}
-        onClose={handleCloseDialog}
-        onConfirm={handleConfirmDelete}
-      />
-    </section>
+      <section className="note" onClick={handleUpdateClick}>
+        <h3 className="title">{title}</h3>
+        <p className="content">{content}</p>
+        <span className="date">{new Date(date).toLocaleDateString()}</span>
+        <span className="icon">
+          <DeleteIcon onClick={handleDelete} />
+        </span>
+      </section>
+    </>
   );
 }
 

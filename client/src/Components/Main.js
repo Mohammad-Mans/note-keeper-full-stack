@@ -41,10 +41,38 @@ function Main() {
     }
   };
 
+  const handleUpdateNote = async (noteId, updatedNote) => {
+    try {
+      const response = await fetch(`http://localhost:3000/notes/${noteId}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          title: updatedNote.title,
+          content: updatedNote.content,
+        }),
+      });
+
+      if (response.ok) {
+        console.log("Note updated successfully");
+        fetchData();
+      } else {
+        console.error("Failed to update note");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
   return (
     <main className="main">
       <AddNotesField onAddNote={() => fetchData()} />
-      <Notes notes={notes} onDeleteNote={handleDeleteNote} />
+      <Notes
+        notes={notes}
+        onDeleteNote={handleDeleteNote}
+        onUpdateNote={handleUpdateNote}
+      />
     </main>
   );
 }
