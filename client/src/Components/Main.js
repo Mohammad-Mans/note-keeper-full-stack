@@ -3,12 +3,26 @@ import "./Main.css";
 import AddNotesField from "./AddNotesField";
 import Notes from "./Notes";
 
-function Main() {
+function Main({ filter }) {
   const [notes, setNotes] = useState([]);
+  const [filteredNotes, setFilteredNotes] = useState(null);
 
   useEffect(() => {
     fetchData();
   }, []);
+
+  useEffect(() => {
+    if (filter.length > 0) {
+      const filtered = notes.filter(
+        (note) =>
+          note.title.toLowerCase().includes(filter.toLowerCase()) ||
+          note.content.toLowerCase().includes(filter.toLowerCase())
+      );
+      setFilteredNotes(filtered);
+    } else {
+      setFilteredNotes(null);
+    }
+  }, [filter, notes]);
 
   const fetchData = async () => {
     try {
@@ -69,7 +83,7 @@ function Main() {
     <main className="main">
       <AddNotesField onAddNote={() => fetchData()} />
       <Notes
-        notes={notes}
+        notes={filteredNotes ? filteredNotes : notes}
         onDeleteNote={handleDeleteNote}
         onUpdateNote={handleUpdateNote}
       />

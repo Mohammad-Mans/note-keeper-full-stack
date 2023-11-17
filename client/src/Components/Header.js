@@ -3,7 +3,7 @@ import "./Header.css";
 import DescriptionIcon from "@mui/icons-material/Description";
 import SearchIcon from "@mui/icons-material/Search";
 
-function Header() {
+function Header({ onSearch }) {
   return (
     <header className="main-header">
       <DescriptionIcon />
@@ -11,7 +11,11 @@ function Header() {
 
       <label className="search-bar">
         <SearchIcon />
-        <input className="search-input" type="text" />
+        <input
+          className="search-input"
+          type="text"
+          onChange={(e) => onSearch(e.target.value)}
+        />
       </label>
     </header>
   );
