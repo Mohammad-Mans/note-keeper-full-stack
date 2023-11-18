@@ -9,29 +9,8 @@ function AddNotesField({ onAddNote }) {
     setExpanded(true);
   };
 
-  const handleAdd = async () => {
-    try {
-      const response = await fetch("http://localhost:3000/notes", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          title: note.title,
-          content: note.content,
-        }),
-      });
-
-      if (response.ok) {
-        console.log("Note added successfully");
-        onAddNote();
-      } else {
-        console.error("Failed to add note");
-      }
-    } catch (error) {
-      console.error("Error:", error);
-    }
-
+  function handleAdd (){
+    onAddNote(note)
     setExpanded(false);
     setNote({ title: "", content: "" });
   };

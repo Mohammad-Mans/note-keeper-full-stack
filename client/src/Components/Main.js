@@ -38,6 +38,30 @@ function Main({ filter }) {
     }
   };
 
+  const handleAddNote = async (note) => {
+    try {
+      const response = await fetch("http://localhost:3000/notes", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          title: note.title,
+          content: note.content,
+        }),
+      });
+
+      if (response.ok) {
+        console.log("Note added successfully");
+        fetchData();
+      } else {
+        console.error("Failed to add note");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  }
+
   const handleDeleteNote = async (noteId) => {
     try {
       const response = await fetch(`http://localhost:3000/notes/${noteId}`, {
@@ -81,7 +105,7 @@ function Main({ filter }) {
 
   return (
     <main className="main">
-      <AddNotesField onAddNote={() => fetchData()} />
+      <AddNotesField onAddNote={handleAddNote} />
       <Notes
         notes={filteredNotes ? filteredNotes : notes}
         onDeleteNote={handleDeleteNote}
