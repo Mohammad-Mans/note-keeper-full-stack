@@ -3,6 +3,7 @@ import "./Note.css";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ConfirmationDialog from "./ConfirmationDialog";
 import UpdateDialog from "./UpdateDialog";
+import PushPinIcon from "@mui/icons-material/PushPin";
 
 function Note({ title, content, date, onDelete, onUpdate }) {
   const [openDialog, setOpenDialog] = useState(null);
@@ -53,10 +54,13 @@ function Note({ title, content, date, onDelete, onUpdate }) {
       )}
 
       <section className="note" onClick={handleUpdateClick}>
+        <span className="pin-icon">
+          <PushPinIcon />
+        </span>
         <h3 className="title">{title}</h3>
         <p className="content">{content}</p>
         <span className="date">{new Date(date).toLocaleDateString()}</span>
-        <span className="icon">
+        <span className="trash-icon">
           <DeleteIcon onClick={handleDelete} />
         </span>
       </section>

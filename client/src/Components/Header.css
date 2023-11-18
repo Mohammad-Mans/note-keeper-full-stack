@@ -10,10 +10,15 @@
   color: var(--text-color);
   border-bottom: 1px solid var(--background-light);
 
+  >h1{
+    >.special{
+      color: var(--main-color);
+    }
+  }
   > .MuiSvgIcon-root {
     font-size: 28px;
     margin-right: 5px;
-    color: var(--text-color);
+    color: var(--main-color);
   }
 
   > .search-bar {
@@ -30,7 +35,7 @@
 
     > .MuiSvgIcon-root {
       margin-right: 5px;
-      color: var(--text-color);
+      color: var(--main-color);
     }
 
     > .search-input {

@@ -7,8 +7,20 @@
   height: fit-content;
   cursor: pointer;
 
+  .pin-icon{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    padding: 5px 5px 0 0;
+    > .MuiSvgIcon-root {
+      transform: rotate(45deg);
+      color: var(--main-color);
+    }
+    
+  }
+
   > .title {
-    margin: 10px 10px 5px;
+    margin: 0 10px 5px;
   }
 
   > .content {
@@ -23,13 +35,14 @@
     border-radius: 30px;
     color: var(--text-color);
   }
-  > .icon {
+  > .trash-icon {
     padding-bottom: 5px;
     width: 100%;
     display: flex;
     justify-content: flex-end;
 
     > .MuiSvgIcon-root {
+      color: var(--background-dark);
       font-size: 30px;
       opacity: 0;
       transition: 0.5s ease;
@@ -38,7 +51,7 @@
 }
 
 .note:hover {
-  > .icon {
+  > .trash-icon {
     > .MuiSvgIcon-root {
       opacity: 2;
     }

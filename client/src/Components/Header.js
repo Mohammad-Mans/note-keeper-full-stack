@@ -7,7 +7,7 @@ function Header({ onSearch }) {
   return (
     <header className="main-header">
       <DescriptionIcon />
-      <h1>My Note Keeper</h1>
+      <h1>My <span className="special">Note</span> Keeper</h1>
 
       <label className="search-bar">
         <SearchIcon />
